@@ -19,7 +19,7 @@ for i in range(num_of_problems):
 
 user_choice = "y"
 
-# takes a random problem from the list then removes it from the list after its solved
+# takes a random problem from the list then removes it from the list after its answered
 while problems:
     rand_index = random.randint(0, len(problems) - 1)
     problem = problems.pop(rand_index)
@@ -50,4 +50,5 @@ while problems:
 
 # when the while loop ends the program will display how many problems were answered correctly and the amount of problems answered
 print(f"You got {correct_answers} out of {attempts} correct")
+
 
