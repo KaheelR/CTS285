@@ -7,7 +7,7 @@ def memory_bank():
 
     problems = []
     for i in range(num_of_problems):
-        problem_input = input(f"Enter problem {i+1}: ")
+        problem_input = input(f"Enter problem {i+1}(eg. 'x+x', 'x-x', 'x*x', 'x/x'): ")
         problems.append(problem_input)
 
     attempts = 0
