@@ -2,13 +2,15 @@ import streamlit as st
 from utils.auth import register_user
 
 def show_register_form():
-    # Initialize only if the key does not exist
-    if "reg_username" not in st.session_state:
-        st.session_state.reg_username = ""
-
-    username = st.text_input("Username", key="reg_username")
-    
     st.header("Register")
+
+    # If a successful registration happened in the previous run:
+    if st.session_state.get("reg_clear", False):
+        st.session_state.reg_username = ""
+        st.session_state.reg_password = ""
+        st.session_state.reg_confirm = ""
+        del st.session_state["reg_clear"]  # important: prevents infinite clearing
+
     with st.form("register_form"):
         username = st.text_input("Username", key="reg_username")
         password = st.text_input("Password", type="password", key="reg_password")
@@ -17,10 +19,10 @@ def show_register_form():
 
     if submit:
         result, msg = register_user(username, password, confirm)
+
         if result:
             st.success(msg)
-            st.session_state.reg_username = ""
-            st.session_state.reg_password = ""
-            st.session_state.reg_confirm = ""
+            # Tell next rerun to clear inputs
+            st.session_state["reg_clear"] = True
         else:
             st.error(msg)
